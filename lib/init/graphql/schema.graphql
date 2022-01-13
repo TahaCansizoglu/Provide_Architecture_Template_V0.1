@@ -1,0 +1,2591 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""P
+columns and relationships of "budget"
+"""
+type budget {
+  active: Boolean!
+  company_id: Int!
+  created_at: timestamptz!
+  currency: String
+  id: Int!
+  total: money!
+  updated_at: timestamptz!
+  user_id: Int!
+}
+
+"""
+aggregated selection of "budget"
+"""
+type budget_aggregate {
+  aggregate: budget_aggregate_fields
+  nodes: [budget!]!
+}
+
+"""
+aggregate fields of "budget"
+"""
+type budget_aggregate_fields {
+  avg: budget_avg_fields
+  count(columns: [budget_select_column!], distinct: Boolean): Int!
+  max: budget_max_fields
+  min: budget_min_fields
+  stddev: budget_stddev_fields
+  stddev_pop: budget_stddev_pop_fields
+  stddev_samp: budget_stddev_samp_fields
+  sum: budget_sum_fields
+  var_pop: budget_var_pop_fields
+  var_samp: budget_var_samp_fields
+  variance: budget_variance_fields
+}
+
+"""aggregate avg on columns"""
+type budget_avg_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "budget". All fields are combined with a logical 'AND'.
+"""
+input budget_bool_exp {
+  _and: [budget_bool_exp!]
+  _not: budget_bool_exp
+  _or: [budget_bool_exp!]
+  active: Boolean_comparison_exp
+  company_id: Int_comparison_exp
+  created_at: timestamptz_comparison_exp
+  currency: String_comparison_exp
+  id: Int_comparison_exp
+  total: money_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "budget"
+"""
+enum budget_constraint {
+  """unique or primary key constraint"""
+  budget_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "budget"
+"""
+input budget_inc_input {
+  company_id: Int
+  id: Int
+  total: money
+  user_id: Int
+}
+
+"""
+input type for inserting data into table "budget"
+"""
+input budget_insert_input {
+  active: Boolean
+  company_id: Int
+  created_at: timestamptz
+  currency: String
+  id: Int
+  total: money
+  updated_at: timestamptz
+  user_id: Int
+}
+
+"""aggregate max on columns"""
+type budget_max_fields {
+  company_id: Int
+  created_at: timestamptz
+  currency: String
+  id: Int
+  total: money
+  updated_at: timestamptz
+  user_id: Int
+}
+
+"""aggregate min on columns"""
+type budget_min_fields {
+  company_id: Int
+  created_at: timestamptz
+  currency: String
+  id: Int
+  total: money
+  updated_at: timestamptz
+  user_id: Int
+}
+
+"""
+response of any mutation on the table "budget"
+"""
+type budget_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [budget!]!
+}
+
+"""
+on conflict condition type for table "budget"
+"""
+input budget_on_conflict {
+  constraint: budget_constraint!
+  update_columns: [budget_update_column!]! = []
+  where: budget_bool_exp
+}
+
+"""Ordering options when selecting data from "budget"."""
+input budget_order_by {
+  active: order_by
+  company_id: order_by
+  created_at: order_by
+  currency: order_by
+  id: order_by
+  total: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"""primary key columns input for table: budget"""
+input budget_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "budget"
+"""
+enum budget_select_column {
+  """column name"""
+  active
+
+  """column name"""
+  company_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  currency
+
+  """column name"""
+  id
+
+  """column name"""
+  total
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "budget"
+"""
+input budget_set_input {
+  active: Boolean
+  company_id: Int
+  created_at: timestamptz
+  currency: String
+  id: Int
+  total: money
+  updated_at: timestamptz
+  user_id: Int
+}
+
+"""aggregate stddev on columns"""
+type budget_stddev_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type budget_stddev_pop_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type budget_stddev_samp_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""aggregate sum on columns"""
+type budget_sum_fields {
+  company_id: Int
+  id: Int
+  total: money
+  user_id: Int
+}
+
+"""
+update columns of table "budget"
+"""
+enum budget_update_column {
+  """column name"""
+  active
+
+  """column name"""
+  company_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  currency
+
+  """column name"""
+  id
+
+  """column name"""
+  total
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  user_id
+}
+
+"""aggregate var_pop on columns"""
+type budget_var_pop_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""aggregate var_samp on columns"""
+type budget_var_samp_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""aggregate variance on columns"""
+type budget_variance_fields {
+  company_id: Float
+  id: Float
+  total: Float
+  user_id: Float
+}
+
+"""
+columns and relationships of "categories"
+"""
+type categories {
+  created_at: timestamptz!
+  icon: String!
+  id: Int!
+  name: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "categories"
+"""
+type categories_aggregate {
+  aggregate: categories_aggregate_fields
+  nodes: [categories!]!
+}
+
+"""
+aggregate fields of "categories"
+"""
+type categories_aggregate_fields {
+  avg: categories_avg_fields
+  count(columns: [categories_select_column!], distinct: Boolean): Int!
+  max: categories_max_fields
+  min: categories_min_fields
+  stddev: categories_stddev_fields
+  stddev_pop: categories_stddev_pop_fields
+  stddev_samp: categories_stddev_samp_fields
+  sum: categories_sum_fields
+  var_pop: categories_var_pop_fields
+  var_samp: categories_var_samp_fields
+  variance: categories_variance_fields
+}
+
+"""aggregate avg on columns"""
+type categories_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "categories". All fields are combined with a logical 'AND'.
+"""
+input categories_bool_exp {
+  _and: [categories_bool_exp!]
+  _not: categories_bool_exp
+  _or: [categories_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  icon: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "categories"
+"""
+enum categories_constraint {
+  """unique or primary key constraint"""
+  categories_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "categories"
+"""
+input categories_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "categories"
+"""
+input categories_insert_input {
+  created_at: timestamptz
+  icon: String
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type categories_max_fields {
+  created_at: timestamptz
+  icon: String
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type categories_min_fields {
+  created_at: timestamptz
+  icon: String
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "categories"
+"""
+type categories_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [categories!]!
+}
+
+"""
+on conflict condition type for table "categories"
+"""
+input categories_on_conflict {
+  constraint: categories_constraint!
+  update_columns: [categories_update_column!]! = []
+  where: categories_bool_exp
+}
+
+"""Ordering options when selecting data from "categories"."""
+input categories_order_by {
+  created_at: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: categories"""
+input categories_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "categories"
+"""
+enum categories_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "categories"
+"""
+input categories_set_input {
+  created_at: timestamptz
+  icon: String
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type categories_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type categories_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type categories_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type categories_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "categories"
+"""
+enum categories_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type categories_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type categories_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type categories_variance_fields {
+  id: Float
+}
+
+"""
+columns and relationships of "companies"
+"""
+type companies {
+  created_at: timestamptz!
+  id: Int!
+  name: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "companies"
+"""
+type companies_aggregate {
+  aggregate: companies_aggregate_fields
+  nodes: [companies!]!
+}
+
+"""
+aggregate fields of "companies"
+"""
+type companies_aggregate_fields {
+  avg: companies_avg_fields
+  count(columns: [companies_select_column!], distinct: Boolean): Int!
+  max: companies_max_fields
+  min: companies_min_fields
+  stddev: companies_stddev_fields
+  stddev_pop: companies_stddev_pop_fields
+  stddev_samp: companies_stddev_samp_fields
+  sum: companies_sum_fields
+  var_pop: companies_var_pop_fields
+  var_samp: companies_var_samp_fields
+  variance: companies_variance_fields
+}
+
+"""aggregate avg on columns"""
+type companies_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "companies". All fields are combined with a logical 'AND'.
+"""
+input companies_bool_exp {
+  _and: [companies_bool_exp!]
+  _not: companies_bool_exp
+  _or: [companies_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "companies"
+"""
+enum companies_constraint {
+  """unique or primary key constraint"""
+  Company_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "companies"
+"""
+input companies_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "companies"
+"""
+input companies_insert_input {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type companies_max_fields {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type companies_min_fields {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "companies"
+"""
+type companies_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [companies!]!
+}
+
+"""
+input type for inserting object relation for remote table "companies"
+"""
+input companies_obj_rel_insert_input {
+  data: companies_insert_input!
+
+  """on conflict condition"""
+  on_conflict: companies_on_conflict
+}
+
+"""
+on conflict condition type for table "companies"
+"""
+input companies_on_conflict {
+  constraint: companies_constraint!
+  update_columns: [companies_update_column!]! = []
+  where: companies_bool_exp
+}
+
+"""Ordering options when selecting data from "companies"."""
+input companies_order_by {
+  created_at: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: companies"""
+input companies_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "companies"
+"""
+enum companies_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "companies"
+"""
+input companies_set_input {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type companies_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type companies_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type companies_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type companies_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "companies"
+"""
+enum companies_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type companies_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type companies_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type companies_variance_fields {
+  id: Float
+}
+
+scalar date
+
+"""
+Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+scalar money
+
+"""
+Boolean expression to compare columns of type "money". All fields are combined with logical 'AND'.
+"""
+input money_comparison_exp {
+  _eq: money
+  _gt: money
+  _gte: money
+  _in: [money!]
+  _is_null: Boolean
+  _lt: money
+  _lte: money
+  _neq: money
+  _nin: [money!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "budget"
+  """
+  delete_budget(
+    """filter the rows which have to be deleted"""
+    where: budget_bool_exp!
+  ): budget_mutation_response
+
+  """
+  delete single row from the table: "budget"
+  """
+  delete_budget_by_pk(id: Int!): budget
+
+  """
+  delete data from the table: "categories"
+  """
+  delete_categories(
+    """filter the rows which have to be deleted"""
+    where: categories_bool_exp!
+  ): categories_mutation_response
+
+  """
+  delete single row from the table: "categories"
+  """
+  delete_categories_by_pk(id: Int!): categories
+
+  """
+  delete data from the table: "companies"
+  """
+  delete_companies(
+    """filter the rows which have to be deleted"""
+    where: companies_bool_exp!
+  ): companies_mutation_response
+
+  """
+  delete single row from the table: "companies"
+  """
+  delete_companies_by_pk(id: Int!): companies
+
+  """
+  delete data from the table: "projects"
+  """
+  delete_projects(
+    """filter the rows which have to be deleted"""
+    where: projects_bool_exp!
+  ): projects_mutation_response
+
+  """
+  delete single row from the table: "projects"
+  """
+  delete_projects_by_pk(id: Int!): projects
+
+  """
+  delete data from the table: "transactions"
+  """
+  delete_transactions(
+    """filter the rows which have to be deleted"""
+    where: transactions_bool_exp!
+  ): transactions_mutation_response
+
+  """
+  delete single row from the table: "transactions"
+  """
+  delete_transactions_by_pk(id: Int!): transactions
+
+  """
+  delete data from the table: "users"
+  """
+  delete_users(
+    """filter the rows which have to be deleted"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  delete single row from the table: "users"
+  """
+  delete_users_by_pk(id: Int!): users
+
+  """
+  insert data into the table: "budget"
+  """
+  insert_budget(
+    """the rows to be inserted"""
+    objects: [budget_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: budget_on_conflict
+  ): budget_mutation_response
+
+  """
+  insert a single row into the table: "budget"
+  """
+  insert_budget_one(
+    """the row to be inserted"""
+    object: budget_insert_input!
+
+    """on conflict condition"""
+    on_conflict: budget_on_conflict
+  ): budget
+
+  """
+  insert data into the table: "categories"
+  """
+  insert_categories(
+    """the rows to be inserted"""
+    objects: [categories_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: categories_on_conflict
+  ): categories_mutation_response
+
+  """
+  insert a single row into the table: "categories"
+  """
+  insert_categories_one(
+    """the row to be inserted"""
+    object: categories_insert_input!
+
+    """on conflict condition"""
+    on_conflict: categories_on_conflict
+  ): categories
+
+  """
+  insert data into the table: "companies"
+  """
+  insert_companies(
+    """the rows to be inserted"""
+    objects: [companies_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: companies_on_conflict
+  ): companies_mutation_response
+
+  """
+  insert a single row into the table: "companies"
+  """
+  insert_companies_one(
+    """the row to be inserted"""
+    object: companies_insert_input!
+
+    """on conflict condition"""
+    on_conflict: companies_on_conflict
+  ): companies
+
+  """
+  insert data into the table: "projects"
+  """
+  insert_projects(
+    """the rows to be inserted"""
+    objects: [projects_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: projects_on_conflict
+  ): projects_mutation_response
+
+  """
+  insert a single row into the table: "projects"
+  """
+  insert_projects_one(
+    """the row to be inserted"""
+    object: projects_insert_input!
+
+    """on conflict condition"""
+    on_conflict: projects_on_conflict
+  ): projects
+
+  """
+  insert data into the table: "transactions"
+  """
+  insert_transactions(
+    """the rows to be inserted"""
+    objects: [transactions_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: transactions_on_conflict
+  ): transactions_mutation_response
+
+  """
+  insert a single row into the table: "transactions"
+  """
+  insert_transactions_one(
+    """the row to be inserted"""
+    object: transactions_insert_input!
+
+    """on conflict condition"""
+    on_conflict: transactions_on_conflict
+  ): transactions
+
+  """
+  insert data into the table: "users"
+  """
+  insert_users(
+    """the rows to be inserted"""
+    objects: [users_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  """
+  insert a single row into the table: "users"
+  """
+  insert_users_one(
+    """the row to be inserted"""
+    object: users_insert_input!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users
+
+  """
+  update data of the table: "budget"
+  """
+  update_budget(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: budget_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: budget_set_input
+
+    """filter the rows which have to be updated"""
+    where: budget_bool_exp!
+  ): budget_mutation_response
+
+  """
+  update single row of the table: "budget"
+  """
+  update_budget_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: budget_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: budget_set_input
+    pk_columns: budget_pk_columns_input!
+  ): budget
+
+  """
+  update data of the table: "categories"
+  """
+  update_categories(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: categories_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: categories_set_input
+
+    """filter the rows which have to be updated"""
+    where: categories_bool_exp!
+  ): categories_mutation_response
+
+  """
+  update single row of the table: "categories"
+  """
+  update_categories_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: categories_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: categories_set_input
+    pk_columns: categories_pk_columns_input!
+  ): categories
+
+  """
+  update data of the table: "companies"
+  """
+  update_companies(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: companies_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: companies_set_input
+
+    """filter the rows which have to be updated"""
+    where: companies_bool_exp!
+  ): companies_mutation_response
+
+  """
+  update single row of the table: "companies"
+  """
+  update_companies_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: companies_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: companies_set_input
+    pk_columns: companies_pk_columns_input!
+  ): companies
+
+  """
+  update data of the table: "projects"
+  """
+  update_projects(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: projects_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: projects_set_input
+
+    """filter the rows which have to be updated"""
+    where: projects_bool_exp!
+  ): projects_mutation_response
+
+  """
+  update single row of the table: "projects"
+  """
+  update_projects_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: projects_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: projects_set_input
+    pk_columns: projects_pk_columns_input!
+  ): projects
+
+  """
+  update data of the table: "transactions"
+  """
+  update_transactions(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: transactions_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: transactions_set_input
+
+    """filter the rows which have to be updated"""
+    where: transactions_bool_exp!
+  ): transactions_mutation_response
+
+  """
+  update single row of the table: "transactions"
+  """
+  update_transactions_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: transactions_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: transactions_set_input
+    pk_columns: transactions_pk_columns_input!
+  ): transactions
+
+  """
+  update data of the table: "users"
+  """
+  update_users(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: users_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  update single row of the table: "users"
+  """
+  update_users_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: users_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+    pk_columns: users_pk_columns_input!
+  ): users
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""
+columns and relationships of "projects"
+"""
+type projects {
+  created_at: timestamptz!
+  id: Int!
+  name: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "projects"
+"""
+type projects_aggregate {
+  aggregate: projects_aggregate_fields
+  nodes: [projects!]!
+}
+
+"""
+aggregate fields of "projects"
+"""
+type projects_aggregate_fields {
+  avg: projects_avg_fields
+  count(columns: [projects_select_column!], distinct: Boolean): Int!
+  max: projects_max_fields
+  min: projects_min_fields
+  stddev: projects_stddev_fields
+  stddev_pop: projects_stddev_pop_fields
+  stddev_samp: projects_stddev_samp_fields
+  sum: projects_sum_fields
+  var_pop: projects_var_pop_fields
+  var_samp: projects_var_samp_fields
+  variance: projects_variance_fields
+}
+
+"""aggregate avg on columns"""
+type projects_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "projects". All fields are combined with a logical 'AND'.
+"""
+input projects_bool_exp {
+  _and: [projects_bool_exp!]
+  _not: projects_bool_exp
+  _or: [projects_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "projects"
+"""
+enum projects_constraint {
+  """unique or primary key constraint"""
+  projects_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "projects"
+"""
+input projects_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "projects"
+"""
+input projects_insert_input {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type projects_max_fields {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type projects_min_fields {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "projects"
+"""
+type projects_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [projects!]!
+}
+
+"""
+on conflict condition type for table "projects"
+"""
+input projects_on_conflict {
+  constraint: projects_constraint!
+  update_columns: [projects_update_column!]! = []
+  where: projects_bool_exp
+}
+
+"""Ordering options when selecting data from "projects"."""
+input projects_order_by {
+  created_at: order_by
+  id: order_by
+  name: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: projects"""
+input projects_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "projects"
+"""
+enum projects_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "projects"
+"""
+input projects_set_input {
+  created_at: timestamptz
+  id: Int
+  name: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type projects_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type projects_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type projects_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type projects_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "projects"
+"""
+enum projects_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type projects_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type projects_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type projects_variance_fields {
+  id: Float
+}
+
+type query_root {
+  """
+  fetch data from the table: "budget"
+  """
+  budget(
+    """distinct select on columns"""
+    distinct_on: [budget_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [budget_order_by!]
+
+    """filter the rows returned"""
+    where: budget_bool_exp
+  ): [budget!]!
+
+  """
+  fetch aggregated fields from the table: "budget"
+  """
+  budget_aggregate(
+    """distinct select on columns"""
+    distinct_on: [budget_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [budget_order_by!]
+
+    """filter the rows returned"""
+    where: budget_bool_exp
+  ): budget_aggregate!
+
+  """fetch data from the table: "budget" using primary key columns"""
+  budget_by_pk(id: Int!): budget
+
+  """
+  fetch data from the table: "categories"
+  """
+  categories(
+    """distinct select on columns"""
+    distinct_on: [categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [categories_order_by!]
+
+    """filter the rows returned"""
+    where: categories_bool_exp
+  ): [categories!]!
+
+  """
+  fetch aggregated fields from the table: "categories"
+  """
+  categories_aggregate(
+    """distinct select on columns"""
+    distinct_on: [categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [categories_order_by!]
+
+    """filter the rows returned"""
+    where: categories_bool_exp
+  ): categories_aggregate!
+
+  """fetch data from the table: "categories" using primary key columns"""
+  categories_by_pk(id: Int!): categories
+
+  """
+  fetch data from the table: "companies"
+  """
+  companies(
+    """distinct select on columns"""
+    distinct_on: [companies_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [companies_order_by!]
+
+    """filter the rows returned"""
+    where: companies_bool_exp
+  ): [companies!]!
+
+  """
+  fetch aggregated fields from the table: "companies"
+  """
+  companies_aggregate(
+    """distinct select on columns"""
+    distinct_on: [companies_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [companies_order_by!]
+
+    """filter the rows returned"""
+    where: companies_bool_exp
+  ): companies_aggregate!
+
+  """fetch data from the table: "companies" using primary key columns"""
+  companies_by_pk(id: Int!): companies
+
+  """
+  fetch data from the table: "projects"
+  """
+  projects(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): [projects!]!
+
+  """
+  fetch aggregated fields from the table: "projects"
+  """
+  projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): projects_aggregate!
+
+  """fetch data from the table: "projects" using primary key columns"""
+  projects_by_pk(id: Int!): projects
+
+  """
+  fetch data from the table: "transactions"
+  """
+  transactions(
+    """distinct select on columns"""
+    distinct_on: [transactions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [transactions_order_by!]
+
+    """filter the rows returned"""
+    where: transactions_bool_exp
+  ): [transactions!]!
+
+  """
+  fetch aggregated fields from the table: "transactions"
+  """
+  transactions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [transactions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [transactions_order_by!]
+
+    """filter the rows returned"""
+    where: transactions_bool_exp
+  ): transactions_aggregate!
+
+  """fetch data from the table: "transactions" using primary key columns"""
+  transactions_by_pk(id: Int!): transactions
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: Int!): users
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "budget"
+  """
+  budget(
+    """distinct select on columns"""
+    distinct_on: [budget_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [budget_order_by!]
+
+    """filter the rows returned"""
+    where: budget_bool_exp
+  ): [budget!]!
+
+  """
+  fetch aggregated fields from the table: "budget"
+  """
+  budget_aggregate(
+    """distinct select on columns"""
+    distinct_on: [budget_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [budget_order_by!]
+
+    """filter the rows returned"""
+    where: budget_bool_exp
+  ): budget_aggregate!
+
+  """fetch data from the table: "budget" using primary key columns"""
+  budget_by_pk(id: Int!): budget
+
+  """
+  fetch data from the table: "categories"
+  """
+  categories(
+    """distinct select on columns"""
+    distinct_on: [categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [categories_order_by!]
+
+    """filter the rows returned"""
+    where: categories_bool_exp
+  ): [categories!]!
+
+  """
+  fetch aggregated fields from the table: "categories"
+  """
+  categories_aggregate(
+    """distinct select on columns"""
+    distinct_on: [categories_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [categories_order_by!]
+
+    """filter the rows returned"""
+    where: categories_bool_exp
+  ): categories_aggregate!
+
+  """fetch data from the table: "categories" using primary key columns"""
+  categories_by_pk(id: Int!): categories
+
+  """
+  fetch data from the table: "companies"
+  """
+  companies(
+    """distinct select on columns"""
+    distinct_on: [companies_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [companies_order_by!]
+
+    """filter the rows returned"""
+    where: companies_bool_exp
+  ): [companies!]!
+
+  """
+  fetch aggregated fields from the table: "companies"
+  """
+  companies_aggregate(
+    """distinct select on columns"""
+    distinct_on: [companies_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [companies_order_by!]
+
+    """filter the rows returned"""
+    where: companies_bool_exp
+  ): companies_aggregate!
+
+  """fetch data from the table: "companies" using primary key columns"""
+  companies_by_pk(id: Int!): companies
+
+  """
+  fetch data from the table: "projects"
+  """
+  projects(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): [projects!]!
+
+  """
+  fetch aggregated fields from the table: "projects"
+  """
+  projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): projects_aggregate!
+
+  """fetch data from the table: "projects" using primary key columns"""
+  projects_by_pk(id: Int!): projects
+
+  """
+  fetch data from the table: "transactions"
+  """
+  transactions(
+    """distinct select on columns"""
+    distinct_on: [transactions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [transactions_order_by!]
+
+    """filter the rows returned"""
+    where: transactions_bool_exp
+  ): [transactions!]!
+
+  """
+  fetch aggregated fields from the table: "transactions"
+  """
+  transactions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [transactions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [transactions_order_by!]
+
+    """filter the rows returned"""
+    where: transactions_bool_exp
+  ): transactions_aggregate!
+
+  """fetch data from the table: "transactions" using primary key columns"""
+  transactions_by_pk(id: Int!): transactions
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: Int!): users
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "transactions"
+"""
+type transactions {
+  category_id: Int!
+  created_at: timestamptz!
+  date: date!
+  description: String
+  id: Int!
+  name: String!
+  price: money!
+  project_id: Int!
+  status: Int!
+  transaction_type: Int!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "transactions"
+"""
+type transactions_aggregate {
+  aggregate: transactions_aggregate_fields
+  nodes: [transactions!]!
+}
+
+"""
+aggregate fields of "transactions"
+"""
+type transactions_aggregate_fields {
+  avg: transactions_avg_fields
+  count(columns: [transactions_select_column!], distinct: Boolean): Int!
+  max: transactions_max_fields
+  min: transactions_min_fields
+  stddev: transactions_stddev_fields
+  stddev_pop: transactions_stddev_pop_fields
+  stddev_samp: transactions_stddev_samp_fields
+  sum: transactions_sum_fields
+  var_pop: transactions_var_pop_fields
+  var_samp: transactions_var_samp_fields
+  variance: transactions_variance_fields
+}
+
+"""aggregate avg on columns"""
+type transactions_avg_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""
+Boolean expression to filter rows from the table "transactions". All fields are combined with a logical 'AND'.
+"""
+input transactions_bool_exp {
+  _and: [transactions_bool_exp!]
+  _not: transactions_bool_exp
+  _or: [transactions_bool_exp!]
+  category_id: Int_comparison_exp
+  created_at: timestamptz_comparison_exp
+  date: date_comparison_exp
+  description: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  price: money_comparison_exp
+  project_id: Int_comparison_exp
+  status: Int_comparison_exp
+  transaction_type: Int_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "transactions"
+"""
+enum transactions_constraint {
+  """unique or primary key constraint"""
+  transactions_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "transactions"
+"""
+input transactions_inc_input {
+  category_id: Int
+  id: Int
+  price: money
+  project_id: Int
+  status: Int
+  transaction_type: Int
+}
+
+"""
+input type for inserting data into table "transactions"
+"""
+input transactions_insert_input {
+  category_id: Int
+  created_at: timestamptz
+  date: date
+  description: String
+  id: Int
+  name: String
+  price: money
+  project_id: Int
+  status: Int
+  transaction_type: Int
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type transactions_max_fields {
+  category_id: Int
+  created_at: timestamptz
+  date: date
+  description: String
+  id: Int
+  name: String
+  price: money
+  project_id: Int
+  status: Int
+  transaction_type: Int
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type transactions_min_fields {
+  category_id: Int
+  created_at: timestamptz
+  date: date
+  description: String
+  id: Int
+  name: String
+  price: money
+  project_id: Int
+  status: Int
+  transaction_type: Int
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "transactions"
+"""
+type transactions_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [transactions!]!
+}
+
+"""
+on conflict condition type for table "transactions"
+"""
+input transactions_on_conflict {
+  constraint: transactions_constraint!
+  update_columns: [transactions_update_column!]! = []
+  where: transactions_bool_exp
+}
+
+"""Ordering options when selecting data from "transactions"."""
+input transactions_order_by {
+  category_id: order_by
+  created_at: order_by
+  date: order_by
+  description: order_by
+  id: order_by
+  name: order_by
+  price: order_by
+  project_id: order_by
+  status: order_by
+  transaction_type: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: transactions"""
+input transactions_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "transactions"
+"""
+enum transactions_select_column {
+  """column name"""
+  category_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  date
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  price
+
+  """column name"""
+  project_id
+
+  """column name"""
+  status
+
+  """column name"""
+  transaction_type
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "transactions"
+"""
+input transactions_set_input {
+  category_id: Int
+  created_at: timestamptz
+  date: date
+  description: String
+  id: Int
+  name: String
+  price: money
+  project_id: Int
+  status: Int
+  transaction_type: Int
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type transactions_stddev_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type transactions_stddev_pop_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type transactions_stddev_samp_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""aggregate sum on columns"""
+type transactions_sum_fields {
+  category_id: Int
+  id: Int
+  price: money
+  project_id: Int
+  status: Int
+  transaction_type: Int
+}
+
+"""
+update columns of table "transactions"
+"""
+enum transactions_update_column {
+  """column name"""
+  category_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  date
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  price
+
+  """column name"""
+  project_id
+
+  """column name"""
+  status
+
+  """column name"""
+  transaction_type
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type transactions_var_pop_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""aggregate var_samp on columns"""
+type transactions_var_samp_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""aggregate variance on columns"""
+type transactions_variance_fields {
+  category_id: Float
+  id: Float
+  price: Float
+  project_id: Float
+  status: Float
+  transaction_type: Float
+}
+
+"""
+kullanıcı bilgileri
+
+
+columns and relationships of "users"
+
+"""
+type users {
+  """An object relationship"""
+  company: companies!
+  company_id: Int!
+  created_at: timestamptz!
+  email: String!
+  id: Int!
+  name: String!
+  password: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "users"
+"""
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
+}
+
+"""
+aggregate fields of "users"
+"""
+type users_aggregate_fields {
+  avg: users_avg_fields
+  count(columns: [users_select_column!], distinct: Boolean): Int!
+  max: users_max_fields
+  min: users_min_fields
+  stddev: users_stddev_fields
+  stddev_pop: users_stddev_pop_fields
+  stddev_samp: users_stddev_samp_fields
+  sum: users_sum_fields
+  var_pop: users_var_pop_fields
+  var_samp: users_var_samp_fields
+  variance: users_variance_fields
+}
+
+"""aggregate avg on columns"""
+type users_avg_fields {
+  company_id: Float
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input users_bool_exp {
+  _and: [users_bool_exp!]
+  _not: users_bool_exp
+  _or: [users_bool_exp!]
+  company: companies_bool_exp
+  company_id: Int_comparison_exp
+  created_at: timestamptz_comparison_exp
+  email: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  password: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum users_constraint {
+  """unique or primary key constraint"""
+  users_email_key
+
+  """unique or primary key constraint"""
+  users_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "users"
+"""
+input users_inc_input {
+  company_id: Int
+  id: Int
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input users_insert_input {
+  company: companies_obj_rel_insert_input
+  company_id: Int
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type users_max_fields {
+  company_id: Int
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type users_min_fields {
+  company_id: Int
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type users_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [users!]!
+}
+
+"""
+on conflict condition type for table "users"
+"""
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]! = []
+  where: users_bool_exp
+}
+
+"""Ordering options when selecting data from "users"."""
+input users_order_by {
+  company: companies_order_by
+  company_id: order_by
+  created_at: order_by
+  email: order_by
+  id: order_by
+  name: order_by
+  password: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: users"""
+input users_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "users"
+"""
+enum users_select_column {
+  """column name"""
+  company_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  password
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "users"
+"""
+input users_set_input {
+  company_id: Int
+  created_at: timestamptz
+  email: String
+  id: Int
+  name: String
+  password: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type users_stddev_fields {
+  company_id: Float
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type users_stddev_pop_fields {
+  company_id: Float
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type users_stddev_samp_fields {
+  company_id: Float
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type users_sum_fields {
+  company_id: Int
+  id: Int
+}
+
+"""
+update columns of table "users"
+"""
+enum users_update_column {
+  """column name"""
+  company_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  password
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type users_var_pop_fields {
+  company_id: Float
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type users_var_samp_fields {
+  company_id: Float
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type users_variance_fields {
+  company_id: Float
+  id: Float
+}
+
